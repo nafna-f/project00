@@ -1,0 +1,6 @@
+Prerequisite installments your machine will require:
+Flask.
+SQL.
+That's it.
+Have fun.
+(w.i.p)

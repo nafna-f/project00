@@ -8,7 +8,6 @@ CSS and all that stylin' jazz: Chloe
 A blog-posting and sharing website. Facebook but cooler.
 ## Launch Codes: [w.i.p]
 Clone it through github's cloning system: git clone link filename. You can literally see the "code" button on this page if you scroll up.
-Running: You're going to need flask app, so make sure to have it!
-Python3 will also be required.
+Running:
 python3 filename.py [tba]
 
