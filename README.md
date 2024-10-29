@@ -6,8 +6,8 @@ Everything aitch-tee-em-el [HTML]: Vedant<br/>
 CSS and all that stylin' jazz: Chloe
 ## Description:
 A blog-posting and sharing website. Facebook but cooler.
+## Install Guide [w.i.p]
+undecided
 ## Launch Codes: [w.i.p]
-Clone it through github's cloning system: git clone link filename. You can literally see the "code" button on this page if you scroll up.<br/>
-Running:<br/>
-python3 filename.py [tba]
+undecided
 
