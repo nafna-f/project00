@@ -1,9 +1,14 @@
-Pre-10/28/2024 [I don't recall the date.]
+# Pre-10/28/2024 [I don't recall the date.]
 
-Written by: PM Naf
+## Written by: PM Naf
 We began the design document, and completed as well as revised it multiple times over the course of the weekend. I was out on Thursday, and was notified to notify my teammates the next time I would have to be out. As the first project manager, I am not setting a good example. How sad. We got a fully completed version of our design document done, and know what we are doing.
 
-10/28/2024
+# 10/28/2024
 
-Written by: PM Naf
+## Written by: PM Naf
 Since I was absent on Thursday, I felt a suitable way to make up for my blunders as a project manager was to handle the rest of the work (the repository structure and all the files within). It was not too difficult but enough work to satiate my desire to be a somewhat dependable PM, so I got to work. My teammates have not done anything yet today, but they don't need to. We have all our deliverables set up, and are ready for Tuesday.
+
+# 10/29/2024
+
+## Written by: PM Naf
+We've had all our deliverables complete, and now only await the final deliverable, which is Vedant with his stapled physical hardcopy of our Design Document. We updated our README.md to comply with the new changes that were required, and are now still deciding on what launch codes and install guide we'd like to have. Chloe and I have agreed that what we have now is substantial enough, and we won't need any other installs in the future. I await Vedant and Benjamin's input, whenever they feel ready. I think we are ahead of others? Beacuse it doesn't seem like Mr. Mykolyk wants us to do anything else. Maybe I should be alloting this time to actually starting the project. It's fine, I'll give it a day, if no explicit instructions are given I'll start exercising my authority as the PM. It's college early access week, so I think the devos deserve a bit of a break, anyway.
