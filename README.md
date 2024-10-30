@@ -7,7 +7,7 @@ CSS and all that stylin' jazz: Chloe
 ## Description:
 A blog-posting and sharing website. Facebook but cooler.
 ## Install Guide [w.i.p]
-You're going to want to install Flask, it's the only package you'll need. $pip install flask.
+You're going to want to install Flask in a virtual environment, it's the only package you'll need. $pip install flask.
 ## Launch Codes: [w.i.p]
 Run \_\_init\_\_.py. $python3 \_\_init\_\_.py
 
