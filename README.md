@@ -28,7 +28,7 @@ $ pip install -r requirements.txt
 ## Launch Codes: [w.i.p]
 1. Run the Flask app
 ```
-$ python3 app/\_\_init\_\_.py
+$ python3 app/__init__.py
 ```
 2. Navigate to localhost
 
