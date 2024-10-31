@@ -18,6 +18,7 @@ $ cd project00
 ```
 $ python3 -m venv foo
 ```
+```
 $ . foo/bin/activate
 ```
 5. Install required packages
