@@ -13,10 +13,10 @@ A blog-posting and sharing website. Facebook but cooler.
 3. Create and activate a virtual environment  
 <code>$ python3 -m venv foo</code>
 <code>$ . foo/bin/activate</code>  
-4. Install required packages
+4. Install required packages  
 <code>$ pip install -r requirements.txt</code>  
 ## Launch Codes: [w.i.p]
-1. Run the Flask app
+1. Run the Flask app  
 <code>$ python3 app/__init__.py</code>  
 2. Navigate to localhost
 
