@@ -7,7 +7,16 @@ CSS and all that stylin' jazz: Chloe
 ## Description:
 A blog-posting and sharing website. Facebook but cooler.
 ## Install Guide [w.i.p]
-You're going to want to install Flask in a virtual environment, it's the only package you'll need. $pip install flask.
+1. Clone and move into this repository  
+<code>$ git clone git@github.com:nafna-f/project00.git</code>  
+<code>$ cd project00</code>  
+3. Create and activate a virtual environment  
+<code>$ python3 -m venv foo</code>
+<code>$ . foo/bin/activate</code>  
+4. Install required packages
+<code>$ pip install -r requirements.txt</code>  
 ## Launch Codes: [w.i.p]
-Run \_\_init\_\_.py. $python3 \_\_init\_\_.py
+1. Run the Flask app
+<code>$ python3 app/__init__.py</code>  
+2. Navigate to localhost
 
