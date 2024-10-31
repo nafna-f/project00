@@ -16,10 +16,22 @@ nafM -- 2024-10-28 XX:XX
   - Added app directory
   - Added \_\_intit\_\_.py
 * requirements.txt updated
-  - Included xxx rewrite rest of devlog later
+  - Included prereqs
 
 nafM -- 2024-10-29 XX:XX
-We've had all our deliverables complete, and now only await the final deliverable, which is Vedant with his stapled physical hardcopy of our Design Document. We updated our README.md to comply with the new changes that were required, and are now still deciding on what launch codes and install guide we'd like to have. Chloe and I have agreed that what we have now is substantial enough, and we won't need any other installs in the future. I await Vedant and Benjamin's input, whenever they feel ready. I think we are ahead of others? Beacuse it doesn't seem like Mr. Mykolyk wants us to do anything else. Maybe I should be alloting this time to actually starting the project. It's fine, I'll give it a day, if no explicit instructions are given I'll start exercising my authority as the PM. It's college early access week, so I think the devos deserve a bit of a break, anyway.
+* Physical hardcopies complete and submitted
+* Updated README.md
+  - Contains roster
+  - Contains description
+  - Contains install guide
+  - Contains launch codes
+* Updated requirements.txt
+  - Removed excess text.
 
 chloeW -- 2024-10-30 21:15
-Fixed requirements.txt to include list of pip modules for installation. Updated Install Guide and Launch Codes sections of README.md to include more detailed instructions.
+* Updated requirements.txt
+  - Includes list of pip modules for installation
+* Updated README.md
+  - Updated install guide + launch codes to include more detailed instructions
+
+
