@@ -1,3 +1,11 @@
+'''
+Minerals: Nafiyu Murtaza, Ben Rudinski, Chloe Wong, Vedant Kothari
+SoftDev
+P00: Move Slowly and Fix Things
+2024-10-31
+Time Spent: .5
+'''
+
 from flask import render_template, redirect, url_for, flask, request
 from app import app, db
 from app.models import User, BlogPost

@@ -1,3 +1,11 @@
+'''
+Minerals: Nafiyu Murtaza, Ben Rudinski, Chloe Wong, Vedant Kothari
+SoftDev
+P00: Move Slowly and Fix Things
+2024-10-31
+Time Spent: .5
+'''
+
 from app import db
 
 class User(db.Model):

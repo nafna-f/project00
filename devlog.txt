@@ -57,11 +57,11 @@ benR -- 2024-10-31 22:57
 * Tested routing flow to ensure pages load correctly and navigate based on login status
   - Set up basic flash messaging for login and registration error handling (to be refined)
 
-benR -- 2024-11-01 23:09
+benR -- 2024-10-31 23:09
 * Updated README.md
   - Added structured installation and setup guide
   - Detailed virtual environment setup and activation
   - Clarified steps for launching the Flask app and accessing the application
   - Provided information on stopping the app
 * Ensured README.md follows GitHub Topher's standards
-  
+* Added headings to all python files for readability
