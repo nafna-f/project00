@@ -40,7 +40,7 @@ benR -- 2024-10-31 11:44
   - Configured app settings through config.py
   - Imported routes and models to set up application structure
 
-benR -- 2024-10-31 22:43
+benR -- 2024-10-31 21:43
 * Created models.py in app directory
   - Defined User and BlogPost models
   - Established one-to-many relationship between User and BlogPost
@@ -48,3 +48,20 @@ benR -- 2024-10-31 22:43
 * Created config.py
   - Added app configuration settings including database URI and secret key
 
+benR -- 2024-10-31 22:57
+* Created and structured routes.py
+  - Added main page route to serve as landing page for logged-out users
+  - Implemented login and registration routes with placeholders for authentication logic
+  - Added home page route with access restricted to logged-in users
+* Structured each route to render respective HTML templates for main, login, register, and home pages
+* Tested routing flow to ensure pages load correctly and navigate based on login status
+  - Set up basic flash messaging for login and registration error handling (to be refined)
+
+benR -- 2024-11-01 23:09
+* Updated README.md
+  - Added structured installation and setup guide
+  - Detailed virtual environment setup and activation
+  - Clarified steps for launching the Flask app and accessing the application
+  - Provided information on stopping the app
+* Ensured README.md follows GitHub Topher's standards
+  
