@@ -34,4 +34,17 @@ chloeW -- 2024-10-30 21:15
 * Updated README.md
   - Updated install guide + launch codes to include more detailed instructions
 
+benR -- 2024-10-31 11:44
+* Added __init__.py in app directory
+  - Initialized Flask app with SQLAlchemy for database management
+  - Configured app settings through config.py
+  - Imported routes and models to set up application structure
+
+benR -- 2024-10-31 22:43
+* Created models.py in app directory
+  - Defined User and BlogPost models
+  - Established one-to-many relationship between User and BlogPost
+  - Configured table structure to support user registration and blog post creation
+* Created config.py
+  - Added app configuration settings including database URI and secret key
 
