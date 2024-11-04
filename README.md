@@ -31,7 +31,7 @@ $ cd project00
 $ python3 -m venv foo
 ```
 
-4. Activate the virtual environment<br/>
+4. Activate the virtual environment
 Linux/MacOS
 ```
 $ . foo/bin/activate
