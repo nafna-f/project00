@@ -7,7 +7,7 @@ Everything aitch-tee-em-el [HTML]: Vedant<br/>
 CSS and all that stylin' jazz: Chloe
 
 ## Description:
-A a collaborative blog-posting and sharing website that takes a better approach than traditional social media. Users can register, log in, and explore different blog categories such as Sports, Politics, Business, Lifestyle, and Arts. Logged-in users can create, edit, and view blog posts, with options to navigate by category or check out random posts. Each user has access to a personalized interface that adapts based on their actions, such as logged-in vs. logged-out views. Facebook but cooler.
+A collaborative blog-posting and sharing website that takes a better approach than traditional social media. Users can register, log in, and explore different blog categories such as Sports, Politics, Business, Lifestyle, and Arts. Logged-in users can create, edit, and view blog posts, with options to navigate by category or check out random posts. Each user has access to a personalized interface that adapts based on their actions, such as logged-in vs. logged-out views. Facebook but cooler.
 
 ## Install Guide [w.i.p]
 
@@ -31,11 +31,10 @@ $ cd project00
 $ python3 -m venv foo
 ```
 
-4. Activate the virtual environment
+4. Activate the virtual environment<br/>
 Linux/MacOS
 ```
 $ . foo/bin/activate
-
 ```
 Windows:
 ```

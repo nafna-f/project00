@@ -65,3 +65,10 @@ benR -- 2024-10-31 23:09
   - Provided information on stopping the app
 * Ensured README.md follows GitHub Topher's standards
 * Added headings to all python files for readability
+
+chloeW -- 2024-11-3 19:09
+* Moved config.py into app directory
+* Updated requirements.txt
+  - Added Flask-SQLAlchemy
+* Updated README.md
+  - Made minor formatting changes
