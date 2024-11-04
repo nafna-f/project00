@@ -72,6 +72,9 @@ chloeW -- 2024-11-3 19:09
   - Added Flask-SQLAlchemy
 * Updated README.md
   - Made minor formatting changes
+
+nafM -- 2024-11-3 23:41
+* Redid devlog.txt
   
 benR -- 2024-11-3 23:22
 * Updated models.py
