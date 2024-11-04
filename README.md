@@ -31,12 +31,11 @@ $ cd project00
 $ python3 -m venv foo
 ```
 
-4. Activate the virtual environment
-Linux/MacOS
+4. Activate the virtual environment: Linux/MacOS
 ```
 $ . foo/bin/activate
 ```
-Windows:
+4. Activate the virtual environment: Windows
 ```
 $ foo\Scripts\activate
 ```
