@@ -7,8 +7,9 @@ Time Spent: .5
 '''
 
 from app import db
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(db.Model, UserMixin): # inherit UM for session management
     # primary key for individual identification
     id = db.Column(db.Integer, primary_key=True)
 

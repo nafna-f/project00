@@ -72,3 +72,19 @@ chloeW -- 2024-11-3 19:09
   - Added Flask-SQLAlchemy
 * Updated README.md
   - Made minor formatting changes
+  
+benR -- 2024-11-3 23:22
+* Updated models.py
+  - Added password hashing setup for User model to securely store login credentials.
+
+* Updated routes.py
+  - Updated main, login, register, home, and logout routes with password and login logic.
+  - Implemented flash messages for user feedback.
+  - Used `@login_required` decorator on home and logout routes to restrict access to logged-in users only.
+  - Set up password verification using `check_password_hash` and hashed passwords on registration.
+
+* Updated __init__.py
+  - Set up Flask-Login for session handling, including `login_view` for redirecting users to login page.
+
+* Updated requirements.txt
+  - Added `Flask-Login==0.6.2` to manage user logins and sessions securely.
