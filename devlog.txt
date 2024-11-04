@@ -99,7 +99,7 @@ benR -- 2024-11-4 11:43
   - Added a beautiful route for editing blog posts: '/post/<int:post_id/edit', which makes sure to check if user is the author of the post, then edits it accordingly
   - Added a route for deleting posts: '/post/<int:post_id>/delete', which checks if user is author of post and then deletes it
 
-vedantK -- 2024-11-4 11:55
+vedantK -- 2024-11-4 11:58
 * Created UI/UX design on Figma
   - Made basic formats to follow for 'Home' page, 'Register' page, 'Login' page, and 'Sports' page as an example
   - Used Figma to create designs
