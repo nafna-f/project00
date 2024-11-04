@@ -91,3 +91,11 @@ benR -- 2024-11-3 23:22
 
 * Updated requirements.txt
   - Added `Flask-Login==0.6.2` to manage user logins and sessions securely.
+
+benR -- 2024-11-4 11:43
+* Updated routes.py
+  - Added a route for creating a new blog post: '/post', which creates a post with users category and author
+  - Added a route for viewing blog posts by category: '/category/<category_name>', using query.filter.by
+  - Added a beautiful route for editing blog posts: '/post/<int:post_id/edit', which makes sure to check if user is the author of the post, then edits it accordingly
+  - Added a route for deleting posts: '/post/<int:post_id>/delete', which checks if user is author of post and then deletes it
+  
