@@ -114,3 +114,13 @@ benR -- 2024-11-4 22:45
   - Defined manual methods in `User` and `BlogPost` classes for CRUD operations
   - Created `init_db` function to initialize tables in SQLite
   - Updated `routes.py` to use SQLite query-based methods for user and blog post management
+  
+benR -- 2024-11-04 23:02
+* Added recent posts functionality
+  - Updated `models.py` with a `created_at` timestamp column in `BlogPost` to store post creation date.
+  - Added `get_recent()` method in `BlogPost` to retrieve posts sorted by most recent first.
+  - Created `/recent` route in `routes.py` to display posts sorted by creation date.
+
+* Added error handlers for common errors
+  - Implemented custom `404` and `500` error handlers to display user-friendly error pages.
+
