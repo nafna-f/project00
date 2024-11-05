@@ -107,3 +107,10 @@ vedantK -- 2024-11-4 11:58
   - Updated roles to add UI/UX design next to my name
   - Added screenshots of UI/UX design to make it accessible for the whole group
   
+benR -- 2024-11-4 22:45
+* Switched from SQLAlchemy to raw SQLite for database
+  - Removed SQLAlchemy imports and database configuration
+  - Updated `models.py` to use SQLite direct queries instead of SQLAlchemy models
+  - Defined manual methods in `User` and `BlogPost` classes for CRUD operations
+  - Created `init_db` function to initialize tables in SQLite
+  - Updated `routes.py` to use SQLite query-based methods for user and blog post management

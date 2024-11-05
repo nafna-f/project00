@@ -8,10 +8,15 @@ Time Spent: 1.5
 
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, current_user, login_required
-from app import app, db
+from app import app
 from app.models import User, BlogPost
 
 from werkzeug.security import generate_password_hash, check_password_hash # password stuff :D
+
+# inialize db
+with app.app_context():
+    from app.models import init_db
+    init_db()
 
 # main page route 
 @app.route('/')
@@ -25,10 +30,10 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        user = User.query.filter_by(username=username).first()
+        user = User.get_by_username(username)
 
         # check is usr exists and password is correct
-        if user and check_password_hash(user.password, password):
+        if user and check_password_hash(user[2], password):
             login_user(user) # log user in
             flash("You have logged in successfully!", 'success')
             return redirect(url_for('home'))
@@ -45,15 +50,13 @@ def register():
        password = request.form.get('password')
 
        # check is username alr exists
-       if User.query.filter_by(username=username).first():
+       if User.get_by_username(username):
            flash("Username already exists. Please choose a different one!", 'warning')
            return redirect(url_for('register')) # take themm right back
        
        # hash pswd and add usr to db
        hashed_password = generate_password_hash(password, 'sha256') # special algorithm SHA
-       new_user = User(username=username, password=hashed_password)
-       db.session.add(new_user)
-       db.session.commit() # create this session
+       User.create(username, hashed_password) # add usr to db
 
        flash("Account created! You can log in now!", 'success')
        return redirect(url_for('login'))
@@ -83,19 +86,17 @@ def post():
         article = request.form.get('article')
         
         # create new post with current user as author
-        new_post = BlogPost(category=category, article=article, author_id=current_user.id)
-        db.session.add(new_post)
-        db.session.commit()
+        BlogPost.create(category=category, article=article, author_id=current_user.id)
 
-        flask("Success! Your new blog post has been created!", 'success')
+        flash("Success! Your new blog post has been created!", 'success')
         return redirect(url_for('home'))
     return render_template('post.html') #some1 need to code this
 
 # route for viewing blog posts by category
 @app.route('/category/<category_name>')
-def view_category():
+def view_category(category_name):
     # query all posts w specific category
-    posts = BlogPost.query.filter_by(category=category_name).all()
+    posts = BlogPost.get_by_category(category_name)
     
     return render_template('category.html', posts=posts, category=category_name)
 
@@ -103,48 +104,38 @@ def view_category():
 @app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
-    post = BlogPost.query.get_or_404(post_id) # or 404 holds error in case
+    post = BlogPost.get(post_id) 
     
     # makje sure current user is author of post
-    if post_author_id != current_user.id:
+    if post[3] != current_user.id:  # Assuming `post[3]` is the author_id
         flash("Sorry but you do not have permission to edit this post!", 'danger')
         return redirect(url_for('home'))
     
     if request.method == 'POST':
-        post.category = request.form.get('category')
-        post.article = request.form.get('article')
-
-        db.session.commit()
+        category = request.form.get('category')
+        article = request.form.get('article')
+        BlogPost.update(post_id, category, article)
 
         flash("Your blog post has been successfully edited! Nice work!", 'success')
-        return redirect(url_for('view_category', category_name=post.category))
+        return redirect(url_for('view_category', category_name=category))
 
     return render_template('edit_post.html', post=post)
 
 # route for deleting post
 @app.route('/post/<int:post_id>/delete', methods=['POST'])
-@login.required
+@login_required
 def delete_post(post_id):
-    post = BlogPost.query.get_or_404(post_id)
+    post = BlogPost.get(post_id)
 
     # makje sure current user is author of post
-    if post_author_id != current_user.id:
-        flash("Sorry but you do not have permission to edit this post!", 'danger')
+    if post[3] != current_user.id:  # 3 is the author_id
+        flash("Sorry but you do not have permission to delete this post!", 'danger')
         return redirect(url_for('home'))
     
-    db.session.delete()
-    db.session.commit() # commit and delete post :(
+    BlogPost.delete(post_id) # delete post :(
 
     flash("Your blog post has unfortunately been deleted.", 'info')
     return redirect(url_for('home'))
-
-
-
-
-
-
-
-
 
 
 
