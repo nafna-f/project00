@@ -3,5 +3,29 @@ Minerals: Nafiyu Murtaza, Ben Rudinski, Chloe Wong, Vedant Kothari
 SoftDev
 P00: Move Slowly and Fix Things
 2024-11-06
-Time Spent:
+Time Spent: .2
 */
+
+body {
+	font-family: Arial;
+	text-align: center;
+	padding: 35px;
+}
+
+h1 {
+	font-size: 50px;
+	color: #000000;
+}
+
+button {
+	background-color: #5a93d8;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 15px 20px;
+	margin: 10px;
+}
+
+button:hover {
+	background-color: #387fd6;
+}
