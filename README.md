@@ -44,13 +44,13 @@ $ foo\Scripts\activate
 $ pip install -r requirements.txt
 ```
 ## Launch Codes: [w.i.p]
-1. Navigate to app directory
+1. Run the database setup file
 ``` 
-$ cd app
+$ python setup_db.py
 ```
 2. Run the Flask app
 ```
-$ python3 app/__init__.py
+$ flask run
 ```
 3. Access the Application: Open your browser and go to http://127.0.0.1:5000 or click the link that appears in your terminal output.
 To stop the app, press CTRL + C
