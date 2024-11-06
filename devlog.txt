@@ -106,30 +106,10 @@ vedantK -- 2024-11-4 11:58
 * Updated design document
   - Updated roles to add UI/UX design next to my name
   - Added screenshots of UI/UX design to make it accessible for the whole group
-  
-benR -- 2024-11-4 22:45
-* Switched from SQLAlchemy to raw SQLite for database
-  - Removed SQLAlchemy imports and database configuration
-  - Updated `models.py` to use SQLite direct queries instead of SQLAlchemy models
-  - Defined manual methods in `User` and `BlogPost` classes for CRUD operations
-  - Created `init_db` function to initialize tables in SQLite
-  - Updated `routes.py` to use SQLite query-based methods for user and blog post management
-  
-benR -- 2024-11-04 23:02
-* Added recent posts functionality
-  - Updated `models.py` with a `created_at` timestamp column in `BlogPost` to store post creation date.
-  - Added `get_recent()` method in `BlogPost` to retrieve posts sorted by most recent first.
-  - Created `/recent` route in `routes.py` to display posts sorted by creation date.
 
-* Added error handlers for common errors
-  - Implemented custom `404` and `500` error handlers to display user-friendly error pages.
-
-benR -- 2024-11-05 20:34
-* Used SimpleLogin instead of Login Manager for user authentication
-	- Updated __init__.py to use flask_simplelogin.SimpleLogin for handling authentication.
-	- Added custom validate_user function for user verification based on username and password.
-	- Updated login functionality
-* Modified routes.py to handle login and registration routes with SimpleLogin decorators.
-	- Adjusted login.html template to use POST method and connect to the /login endpoint.
-* Updated dependencies for running our app
-* Created run.py 
+vedantK -- 2024-11-5 9:04
+* Created HTML Templates
+  - Made HTML templates for the following files: main.html, login.html, register.html, home.html, post.html, category.html, edit_post.html, recent_posts.html, 404.html, and 500.html
+  - All files can be located in project00/app/templates
+  - Links are not working for some reason, so will look at that further in class tomorrow and fix
+  
