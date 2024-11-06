@@ -16,7 +16,7 @@ with app.app_context():
     from app.models import init_db
     init_db()
 
-# main page route 
+# main page route
 @app.route('/')
 def main():
     return render_template('main.html') # someone still need to code this lol
@@ -24,6 +24,7 @@ def main():
 # login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    print("log in ran")
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -31,10 +32,12 @@ def login():
 
         # check if user exists and password is correct using User.verify_password
         if user and User.verify_password(user.password, password):
+            print("user and password found/correct");
             session['user_id'] = user.id  # manually store user session
             flash("You have logged in successfully!", 'success')
             return redirect(url_for('home'))
         else:
+            print("user/pass was not found/incorrect");
             flash("Login unsuccessful. Check your username and password.", 'danger')
 
     return render_template('login.html')
@@ -51,11 +54,10 @@ def register():
        if User.get_by_username(username):
            flash("Username already exists. Please choose a different one!", 'warning')
            return redirect(url_for('register')) # take themm right back
-       
+
        # hash pswd and add usr to db
        hashed_password = User.hash_password(password)
        User.create(username, hashed_password)
-
        flash("Account created! You can log in now!", 'success')
        return redirect(url_for('login'))
 
@@ -82,7 +84,7 @@ def post():
     if request.method == 'POST':
         category = request.form.get('category')
         article = request.form.get('article')
-        
+
         # create new post with current user as author
         BlogPost.create(category=category, article=article, author_id=session.get('user_id'))
 
@@ -95,20 +97,20 @@ def post():
 def view_category(category_name):
     # query all posts w specific category
     posts = BlogPost.get_by_category(category_name)
-    
+
     return render_template('category.html', posts=posts, category=category_name)
 
 # route for editing blog post
 @app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 @simple_login_required
 def edit_post(post_id):
-    post = BlogPost.get(post_id) 
-    
+    post = BlogPost.get(post_id)
+
     # make sure current user is author of post
     if post[3] != session.get('user_id'):  # Assuming `post[3]` is the author_id
         flash("Sorry but you do not have permission to edit this post!", 'danger')
         return redirect(url_for('home'))
-    
+
     if request.method == 'POST':
         category = request.form.get('category')
         article = request.form.get('article')
@@ -129,7 +131,7 @@ def delete_post(post_id):
     if post[3] != session.get('user_id'):  # 3 is the author_id
         flash("Sorry but you do not have permission to delete this post!", 'danger')
         return redirect(url_for('home'))
-    
+
     BlogPost.delete(post_id) # delete post :(
 
     flash("Your blog post has unfortunately been deleted.", 'info')
