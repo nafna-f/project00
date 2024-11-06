@@ -3,110 +3,113 @@ Minerals: Nafiyu Murtaza, Ben Rudinski, Chloe Wong, Vedant Kothari
 SoftDev
 P00: Move Slowly and Fix Things
 2024-10-31
-Time Spent: 1.2
+Time Spent: 1.9
 '''
 
-from app import app
-from flask_login import UserMixin
 import sqlite3
+import hmac
+from hashlib import sha256
+from app import app
 
-# init db and create tables
 def init_db():
     with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
-        friend = conn.cursor()
-
-        # user table
-        friend.execute('''CREATE TABLE IF NOT EXISTS user (
+        cursor = conn.cursor()
+        # Create user table if it doesn't exist
+        cursor.execute('''CREATE TABLE IF NOT EXISTS user (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL
         )''')
-
-        # BlogPost table with created_at column for timestamps
-        friend.execute('''CREATE TABLE IF NOT EXISTS blog_post (
+        
+        # Create blog_post table if it doesn't exist
+        cursor.execute('''CREATE TABLE IF NOT EXISTS blog_post (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             category TEXT NOT NULL,
             article TEXT NOT NULL,
             author_id INTEGER,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  # ADDED CREATED_AT COLUMN FOR TIMESTAMP
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(author_id) REFERENCES user(id)
         )''')
-
         conn.commit()
 
-class User(UserMixin):
-
-    # get user by usrnmae
+class User:
     @staticmethod
     def get_by_username(username):
         with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
-            friend = conn.cursor()
-            friend.execute("SELECT * FROM user WHERE username = ?", (username,))
-            return friend.fetchone()
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM user WHERE username = ?", (username,))
+            user_data = cursor.fetchone()
+            if user_data:
+                return User(*user_data)
+            return None
 
-    # create user
     @staticmethod
     def create(username, password):
+        hashed_password = User.hash_password(password)
         with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
-            friend = conn.cursor()
-            friend.execute("INSERT INTO user (username, password) VALUES (?, ?)", (username, password))
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO user (username, password) VALUES (?, ?)", (username, hashed_password))
             conn.commit()
 
-    # get by user id
     @staticmethod
-    def get(user_id):
-        with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
-            friend = conn.cursor()
-            friend.execute("SELECT * FROM user WHERE id = ?", (user_id,))
-            return friend.fetchone()
+    def verify_password(stored_password, provided_password):
+        return hmac.compare_digest(stored_password, User.hash_password(provided_password))
 
-# BlogPost model for db
+    @staticmethod
+    def hash_password(password):
+        return sha256(password.encode()).hexdigest()
+
+    def __init__(self, id, username, password):
+        self.id = id
+        self.username = username
+        self.password = password
+
 class BlogPost:
 
-    # create blogpost
+    # Create a new blog post
     @staticmethod
     def create(category, article, author_id):
         with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
-            friend = conn.cursor()
-            friend.execute("INSERT INTO blog_post (category, article, author_id) VALUES (?, ?, ?)", (category, article, author_id))
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO blog_post (category, article, author_id) VALUES (?, ?, ?)", (category, article, author_id))
             conn.commit()
 
-    # get blog post by category
+    # Fetch blog posts by category
     @staticmethod
     def get_by_category(category):
         with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
-            friend = conn.cursor()
-            friend.execute("SELECT * FROM blog_post WHERE category = ? ORDER BY created_at DESC", (category,))  # ADDED ORDER BY CREATED_AT DESC FOR RECENT POSTS FIRST
-            return friend.fetchall()
-    
-    # get all blog posts, most recent first
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM blog_post WHERE category = ? ORDER BY created_at DESC", (category,))
+            return cursor.fetchall()
+
+    # Fetch all recent blog posts
     @staticmethod
     def get_recent():
         with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
-            friend = conn.cursor()
-            friend.execute("SELECT * FROM blog_post ORDER BY created_at DESC")  # order for most recent first
-            return friend.fetchall()
-        
-    # get by post id
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM blog_post ORDER BY created_at DESC")
+            return cursor.fetchall()
+
+    # Fetch blog post by ID
     @staticmethod
     def get(post_id):
         with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
-            friend = conn.cursor()
-            friend.execute("SELECT * FROM blog_post WHERE id = ?", (post_id,))
-            return friend.fetchone()
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM blog_post WHERE id = ?", (post_id,))
+            return cursor.fetchone()
 
-    # update post 
+    # Update an existing blog post
     @staticmethod
     def update(post_id, category, article):
         with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
-            friend = conn.cursor()
-            friend.execute("UPDATE blog_post SET category = ?, article = ? WHERE id = ?", (category, article, post_id))
+            cursor = conn.cursor()
+            cursor.execute("UPDATE blog_post SET category = ?, article = ? WHERE id = ?", (category, article, post_id))
             conn.commit()
 
-    # del post 
+    # Delete a blog post
     @staticmethod
     def delete(post_id):
         with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
-            friend = conn.cursor()
-            friend.execute("DELETE FROM blog_post WHERE id = ?", (post_id,))
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM blog_post WHERE id = ?", (post_id,))
             conn.commit()

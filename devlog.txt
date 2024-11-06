@@ -124,3 +124,12 @@ benR -- 2024-11-04 23:02
 * Added error handlers for common errors
   - Implemented custom `404` and `500` error handlers to display user-friendly error pages.
 
+benR -- 2024-11-05 20:34
+* Used SimpleLogin instead of Login Manager for user authentication
+	- Updated __init__.py to use flask_simplelogin.SimpleLogin for handling authentication.
+	- Added custom validate_user function for user verification based on username and password.
+	- Updated login functionality
+* Modified routes.py to handle login and registration routes with SimpleLogin decorators.
+	- Adjusted login.html template to use POST method and connect to the /login endpoint.
+* Updated dependencies for running our app
+* Created run.py 

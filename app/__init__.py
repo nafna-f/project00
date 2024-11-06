@@ -8,24 +8,26 @@ Time Spent: .3
 
 # imports
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
 from config import Config
+from flask_simplelogin import SimpleLogin
 
-#inialize our flask app and config
+# initialize the Flask app
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# initialize our database of sql alchemy
-db = SQLAlchemy(app)
+# user validation logic
+def validate_user(username, password):
+    from app.models import User # avoid circular imports
+    user = User.get_by_username(username)
+    if user and User.verify_password(user.password, password):
+        return True  # success
+    return False
 
-#loginmanager for session handling
-login_manager = LoginManager(app)
-login_manager.login_view = 'login' # redirect user to login page if not logged in
-login_manager.login_message_category = 'info' # typ of msg shown
+# init login
+SimpleLogin(app)
 
-# import our routes and models for the app
-from app import routes, models
+# import routes after app initialization
+from app import routes
 
 
 
