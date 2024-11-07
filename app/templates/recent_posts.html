@@ -10,7 +10,7 @@
         <h1>Recent Posts</h1>
         <ul>
             {% for post in posts %}
-            <li>{{ post.category }}: {{ post.article }} - by {{ post.author.username }}</li>
+            <li>{{ post.category }}: {{ post.article }} by {{ post.author.username }}</li>
             {% endfor %}
         </ul>
         <a href="{{ url_for('home') }}">Back to Home</a>
