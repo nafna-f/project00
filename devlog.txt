@@ -131,4 +131,8 @@ chloeW -- 2024-11-6 20:39
   - Added a CSS file for each HTML template
   - Finished 6 of 10 files...waiting on working login to complete others
 * Updated HTML templates
+<<<<<<< HEAD
   - Made minor changes to HTML templates (added a few buttons, breaks, etc.)
+=======
+  - Made minor changes to HTML templates (added a few buttons, breaks, etc.)
+>>>>>>> 7730096aeeca2ffc8daf647687e2ccb96eadac62
