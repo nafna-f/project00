@@ -21,7 +21,6 @@ with app.app_context():
 def main():
     return render_template('main.html') # someone still need to code this lol
 
-# login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     print("Login route accessed.")  # Debug message
@@ -47,6 +46,7 @@ def login():
 
     # Render login page with flash messages
     return render_template('login.html')
+
 
 # registration page to create an account
 @app.route('/register', methods=['GET', 'POST'])
