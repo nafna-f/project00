@@ -145,3 +145,24 @@ button {
 button:hover {
     background-color: #387fd6;
 }
+
+label {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="category"], input[type="text"] {
+    width: 600px;
+    padding: 10px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+}
+
+textarea {
+    width: 600px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+}

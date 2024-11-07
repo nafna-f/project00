@@ -129,7 +129,7 @@ BenR -- 2024-11-6 11:15
 chloeW -- 2024-11-6 20:39
 * Created CSS files
   - Added a CSS file for each HTML template
-  - Finished 6 of 10 files...waiting on working login to complete others
+  - Finished most of them...waiting on working login to complete others
 * Updated HTML templates
   - Made minor changes to HTML templates (added a few buttons, breaks, etc.)
 
@@ -147,3 +147,6 @@ BenR -- 2024-11-6 23:15
 	- Tested CRUD operations on blog posts
 * Verified create, edit, and delete operations to confirm that users can only modify their posts.
 	- Conducted end-to-end tests to ensure seamless user experience across login, registration, and post interactions.
+
+chloeW -- 2024-11-7 3:51
+* Made minor styling changes
