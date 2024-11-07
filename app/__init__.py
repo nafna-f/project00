@@ -14,11 +14,11 @@ from config import Config
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Set up the database when the app context is available
+# Import models and initialize the database within the app context
+from app.models import init_db
+
 with app.app_context():
-    from app.models import init_db
-    init_db()
+    init_db()  # Call to create tables if they don't already exist
 
-# Import routes after app initialization
+# Import routes after app initialization to avoid circular imports
 from app import routes
-

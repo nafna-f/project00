@@ -130,9 +130,20 @@ chloeW -- 2024-11-6 20:39
 * Created CSS files
   - Added a CSS file for each HTML template
   - Finished 6 of 10 files...waiting on working login to complete others
-* Updated HTML templates
-<<<<<<< HEAD
   - Made minor changes to HTML templates (added a few buttons, breaks, etc.)
-=======
   - Made minor changes to HTML templates (added a few buttons, breaks, etc.)
->>>>>>> 7730096aeeca2ffc8daf647687e2ccb96eadac62
+
+BenR -- 2024-11-6 23:15
+* Debugged and finalized database initialization in init_db()
+* Verified user and blog_post tables are created correctly without errors.
+	- Tested initialization to prevent "no such table" errors by ensuring tables exist before any operations.
+	- Updated routing logic in routes.py
+* Added conditional checks for user authentication on post creation, edit, and delete routes.
+	- Improved flash message integration for user feedback on successful or failed actions.
+	- Refined main.html and main.css for improved layout and styling
+* Added dynamic post display with category filtering.
+	- Added personalized greeting for logged-in users and positioned login/logout links in the header.
+	- Styled category navigation bar and ensured post content is well-organized.
+	- Tested CRUD operations on blog posts
+* Verified create, edit, and delete operations to confirm that users can only modify their posts.
+	- Conducted end-to-end tests to ensure seamless user experience across login, registration, and post interactions.

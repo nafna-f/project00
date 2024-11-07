@@ -1,6 +1,5 @@
-# setup_db.py
-from app import app
 from app.models import init_db
 
-with app.app_context():
+if __name__ == '__main__':
     init_db()
+    print("Database initialized successfully.")

@@ -12,13 +12,33 @@ from hashlib import sha256
 from app import app
 
 def init_db():
+    """Initialize the database by creating the necessary tables if they don't exist."""
     with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
         cursor = conn.cursor()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS user (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL
-        )''')
+        
+        # Create user table if it doesn't exist
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS user (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL
+            )
+        ''')
+        
+        # Create blog_post table if it doesn't exist
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS blog_post (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT NOT NULL,
+                content TEXT NOT NULL,
+                category TEXT NOT NULL,
+                author_id INTEGER,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY(author_id) REFERENCES user(id)
+            )
+        ''')
+        
+        # Commit changes
         conn.commit()
 
 class User:
@@ -60,7 +80,17 @@ class User:
             cursor.execute("SELECT * FROM user WHERE id = ?", (user_id,))
             user_data = cursor.fetchone()
             if user_data:
-                return User(*user_data)  # Assumes the constructor of User accepts the fields in user_data
+                return User(*user_data)
+            return None
+        
+    @staticmethod
+    def get(user_id):
+        with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM user WHERE id = ?", (user_id,))
+            user_data = cursor.fetchone()
+            if user_data:
+                return User(*user_data)
             return None
 
     def __init__(self, id, username, password):
@@ -73,10 +103,10 @@ class BlogPost:
 
     # Create a new blog post
     @staticmethod
-    def create(category, article, author_id):
+    def create(category, title, content, author_id):
         with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO blog_post (category, article, author_id) VALUES (?, ?, ?)", (category, article, author_id))
+            cursor.execute("INSERT INTO blog_post (category, title, content, author_id) VALUES (?, ?, ?, ?)", (category, title, content, author_id))
             conn.commit()
 
     # Fetch blog posts by category
@@ -118,3 +148,10 @@ class BlogPost:
             cursor = conn.cursor()
             cursor.execute("DELETE FROM blog_post WHERE id = ?", (post_id,))
             conn.commit()
+
+    @staticmethod
+    def get_all():
+        with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM blog_post ORDER BY created_at DESC")
+            return cursor.fetchall()
