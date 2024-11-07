@@ -14,21 +14,10 @@ from app import app
 def init_db():
     with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
         cursor = conn.cursor()
-        # Create user table if it doesn't exist
         cursor.execute('''CREATE TABLE IF NOT EXISTS user (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL
-        )''')
-        
-        # Create blog_post table if it doesn't exist
-        cursor.execute('''CREATE TABLE IF NOT EXISTS blog_post (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            category TEXT NOT NULL,
-            article TEXT NOT NULL,
-            author_id INTEGER,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY(author_id) REFERENCES user(id)
         )''')
         conn.commit()
 
@@ -45,7 +34,8 @@ class User:
 
     @staticmethod
     def create(username, password):
-        hashed_password = User.hash_password(password)
+        hashed_password = User.hash_password(password)  # Hashing once during registration
+        print(f"Hashed password (registration): {hashed_password}")  # Debugging output
         with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
             cursor = conn.cursor()
             cursor.execute("INSERT INTO user (username, password) VALUES (?, ?)", (username, hashed_password))
@@ -53,16 +43,31 @@ class User:
 
     @staticmethod
     def verify_password(stored_password, provided_password):
-        return hmac.compare_digest(stored_password, User.hash_password(provided_password))
+        hashed_provided_password = User.hash_password(provided_password)  # Hashing provided password once
+        print(f"Stored: {stored_password}, Provided: {hashed_provided_password}")  # Debugging output
+        return hmac.compare_digest(stored_password, hashed_provided_password)
 
     @staticmethod
     def hash_password(password):
-        return sha256(password.encode()).hexdigest()
+        hashed_password = sha256(password.encode()).hexdigest()
+        print(f"Hashed password (hash_password method): {hashed_password}")  # Debugging output
+        return hashed_password
+    
+    @staticmethod
+    def get_by_id(user_id):
+        with sqlite3.connect(app.config['DATABASE_PATH']) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM user WHERE id = ?", (user_id,))
+            user_data = cursor.fetchone()
+            if user_data:
+                return User(*user_data)  # Assumes the constructor of User accepts the fields in user_data
+            return None
 
     def __init__(self, id, username, password):
         self.id = id
         self.username = username
         self.password = password
+
 
 class BlogPost:
 
