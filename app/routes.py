@@ -24,22 +24,28 @@ def main():
 # login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    print("log in ran")
+    print("Login route accessed.")  # Debug message
+
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        user = User.get_by_username(username)
 
-        # check if user exists and password is correct using User.verify_password
-        if user and User.verify_password(user.password, password):
-            print("user and password found/correct");
-            session['user_id'] = user.id  # manually store user session
-            flash("You have logged in successfully!", 'success')
+        # Debugging messages to check form data
+        print(f"Username submitted: {username}")
+        print(f"Password submitted: {'*' * len(password) if password else 'No password provided'}")
+
+        # Check if the user exists and validate password
+        user = User.get_by_username(username)
+        if user and user.verify_password(user.password, password):
+            print("User found and password is correct.")  # Debug message
+            session['user_id'] = user.id  # cookieee
+            flash("Login successful!", "success")
             return redirect(url_for('home'))
         else:
-            print("user/pass was not found/incorrect");
-            flash("Login unsuccessful. Check your username and password.", 'danger')
+            print("Invalid login attempt.")  # Debug message
+            flash("Invalid username or password.", "danger")
 
+    # Render login page with flash messages
     return render_template('login.html')
 
 # registration page to create an account
