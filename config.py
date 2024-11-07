@@ -10,5 +10,5 @@ import os
 
 class Config: 
     # secret key for securely using session cookie
-    SECRET_KEY = os.environ.get("SECRET_KEY") or 'Minerals'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'Minerals'
     DATABASE_PATH = os.path.join(os.getcwd(), 'site.db') # set db path
