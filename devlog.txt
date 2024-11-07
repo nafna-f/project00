@@ -115,3 +115,10 @@ vedantK -- 2024-11-5 9:04
   
 BenR -- 2024-11-6 11:15
 * Deleted corrupted python files
+
+chloeW -- 2024-11-6 20:39
+* Created CSS files
+  - Added a CSS file for each HTML template
+  - Finished 6 of 10 files...waiting on working login to complete others
+* Updated HTML templates
+  - Made minor changes to HTML templates (added a few buttons, breaks, etc.)
