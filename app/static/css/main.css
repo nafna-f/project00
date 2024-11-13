@@ -123,6 +123,40 @@ h2 {
     font-weight: bold;
 }
 
+.post-actions {
+    margin-top: 10px;
+}
+
+.post-actions form {
+    display: inline-block;
+    margin-right: 10px; /* Space between buttons */
+}
+
+.post-actions button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.delete-button {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #45a049;
+}
+
+.delete-button:hover {
+    background-color: #da190b;
+}
+
 .flash-message.success { background-color: #d4edda; color: #155724; }
 .flash-message.warning { background-color: #fff3cd; color: #856404; }
 .flash-message.danger { background-color: #f8d7da; color: #721c24; }

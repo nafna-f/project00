@@ -150,3 +150,10 @@ BenR -- 2024-11-6 23:15
 
 chloeW -- 2024-11-7 3:51
 * Made minor styling changes
+
+benR -- 2024-11-12 8:05
+* Fixed create post, edit post, and delete post by updating database requirements and configuration
+* Added edit and delete buttons (with color of course) below a post if you are the author
+* Added a search bar to search for specific queries in posts
+* Made main bar lock to top 
+* Added checks for username and password

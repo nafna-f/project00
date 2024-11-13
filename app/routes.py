@@ -3,7 +3,7 @@ Minerals: Nafiyu Murtaza, Ben Rudinski, Chloe Wong, Vedant Kothari
 SoftDev
 P00: Move Slowly and Fix Things
 2024-10-31
-Time Spent: 1.9
+Time Spent: 4
 '''
 
 from flask import render_template, redirect, url_for, flash, request, session
@@ -11,7 +11,6 @@ from app import app
 from app.models import User, BlogPost
 from functools import wraps
 
-#def login_required(f):
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -26,47 +25,19 @@ def main():
     user = None
     if 'user_id' in session:
         user = User.get(session['user_id'])
-    posts = BlogPost.get_all()
-    
-    # Sample posts for demonstration
-    posts = {
-    "Politics": [
-        {"title": "Topher Elected President with 372 Electoral Votes", 
-         "content": "In a shocking twist, Topher has won the presidency with a sweeping majority, promising a new era of unparalleled humor and wisdom."},
-        {"title": "Topher Declares Every Monday a National Holiday", 
-         "content": "Topher, in his latest executive order, has declared every Monday a holiday, stating 'everyone deserves a little more weekend.'"},
-        {"title": "Topher's First Act: Free WiFi Nationwide", 
-         "content": "As his first official act, President Topher provides free WiFi across the nation, citing internet as a 'basic human right.'"}
-    ],
-    "Business": [
-        {"title": "Topher's Startup 'LaughCo' Valued at $1 Billion", 
-         "content": "Topher's latest venture, LaughCo, has taken the business world by storm, bringing humor into every aspect of life."},
-        {"title": "Topher Buys Twitter, Renames It 'TopherTalk'", 
-         "content": "In a surprising move, Topher buys Twitter and rebrands it to 'TopherTalk,' promising a social media revolution."},
-        {"title": "Topher Coin: The Cryptocurrency Revolution", 
-         "content": "Topher launches his own cryptocurrency, 'Topher Coin,' which gains instant popularity among meme investors."}
-    ],
-    "Lifestyle": [
-        {"title": "Topher's 10 Tips for Maximum Laziness", 
-         "content": "Topher shares his expert advice on achieving ultimate relaxation, with tips on napping, binge-watching, and lounging."},
-        {"title": "Why Topher Thinks Ice Cream is a Breakfast Food", 
-         "content": "Topher argues the case for ice cream as a healthy and balanced breakfast option in a controversial new trend."},
-        {"title": "Topher's Guide to Wearing Pajamas Everywhere", 
-         "content": "In this lifestyle piece, Topher encourages everyone to embrace comfort by normalizing pajamas for all occasions."}
-    ],
-    "Arts": [
-        {"title": "Topher Stars in Blockbuster: 'The Life of Topher'", 
-         "content": "The film 'The Life of Topher' becomes an instant hit, depicting his humorous and unpredictable journey to fame."},
-        {"title": "Topher's Art Gallery: Only Stick Figures Allowed", 
-         "content": "Topher opens an art gallery that exclusively features stick figures, creating a new artistic movement in the process."},
-        {"title": "Topher's Stand-Up Comedy Revolutionizes Modern Art", 
-         "content": "Topher takes to the stage, blending stand-up comedy with performance art in a unique and laugh-inducing way."}
-    ]
-}
+    posts = BlogPost.get_all()  # Fetch all posts from the database
 
+    # Define the order of categories
+    ordered_categories = ["Politics", "Business", "Lifestyle", "Arts"]
+    posts_by_category = {category: [] for category in ordered_categories}  # Initialize dictionary with ordered keys
 
+    # Populate categories with posts
+    for post in posts:
+        if post.category in posts_by_category:
+            posts_by_category[post.category].append(post)
 
-    return render_template('main.html', username=user.username if user else None, posts=posts)
+    return render_template('main.html', username=user.username if user else None, posts=posts_by_category)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -87,9 +58,32 @@ def register():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        # Password validation (server-side)
+        errors = []
+        if password != confirm_password:
+            errors.append("Passwords do not match.")
+        if len(password) < 12:
+            errors.append("Password must be at least 12 characters long.")
+        if not any(c.islower() for c in password):
+            errors.append("Password must contain at least one lowercase letter.")
+        if not any(c.isupper() for c in password):
+            errors.append("Password must contain at least one uppercase letter.")
+        if not any(c.isdigit() for c in password):
+            errors.append("Password must contain at least one number.")
+        if not any(c.isalpha() for c in password):
+            errors.append("Password must contain at least one letter.")
+
+        if errors:
+            for error in errors:
+                flash(error, 'danger')
+            return redirect(url_for('register'))
+
         if User.get_by_username(username):
             flash("Username already exists.", 'warning')
             return redirect(url_for('register'))
+
         User.create(username, password)
         flash("Account created! Log in now.", 'success')
         return redirect(url_for('login'))
@@ -102,28 +96,6 @@ def logout():
     return redirect(url_for('main'))
 
 # Route for creating new blog post
-@app.route('/post', methods=['GET', 'POST'])
-@login_required
-def post():
-    if request.method == 'POST':
-        category = request.form.get('category')
-        article = request.form.get('article')
-        BlogPost.create(category=category, article=article, author_id=session.get('user_id'))
-        flash("Success! Your new blog post has been created!", 'success')
-        return redirect(url_for('main'))
-    return render_template('post.html')
-
-# route for viewing blog posts by category
-@app.route('/category/<string:category_name>')
-def view_category(category_name):
-    posts = BlogPost.get_by_category(category_name)
-    username = None
-    if 'user_id' in session:
-        user = User.get(session['user_id'])
-        username = user.username if user else None
-    return render_template('category.html', username=username, posts=posts, category_name=category_name)
-
-
 @app.route('/post/create', methods=['GET', 'POST'])
 @login_required
 def create_post():
@@ -137,36 +109,58 @@ def create_post():
         BlogPost.create(category, title, content, author_id)
 
         flash("Post created successfully!", "success")
-        return redirect(url_for('main'))  # Ensure this goes to the page where all posts are displayed
+        return redirect(url_for('main'))
     
     return render_template('create_post.html')
 
+# Route for editing a blog post
 @app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
     post = BlogPost.get(post_id)
+    if post is None:
+        flash("Post not found.", 'danger')
+        return redirect(url_for('main'))
     if post.author_id != session['user_id']:
         flash("You can only edit your own posts.", 'danger')
         return redirect(url_for('main'))
     if request.method == 'POST':
-        post.category = request.form.get('category')
-        post.title = request.form.get('title')
-        post.content = request.form.get('content')
-        BlogPost.update(post_id, post.category, post.title, post.content)
+        category = request.form.get('category')
+        title = request.form.get('title')
+        content = request.form.get('content')
+        BlogPost.update(post_id, category, title, content)
         flash("Post updated successfully!", 'success')
         return redirect(url_for('main'))
     return render_template('edit_post.html', post=post)
 
+# Route for deleting a blog post
 @app.route('/post/<int:post_id>/delete', methods=['POST'])
 @login_required
 def delete_post(post_id):
     post = BlogPost.get(post_id)
+    if post is None:
+        flash("Post not found.", 'danger')
+        return redirect(url_for('main'))
     if post.author_id == session['user_id']:
         BlogPost.delete(post_id)
         flash("Post deleted successfully.", 'info')
     else:
         flash("You can only delete your own posts.", 'danger')
     return redirect(url_for('main'))
+
+# Search functionality
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.args.get('query')
+    if query:
+        results = BlogPost.search(query)
+        user = None
+        if 'user_id' in session:
+            user = User.get(session['user_id'])
+        return render_template('search_results.html', username=user.username if user else None, posts=results, query=query)
+    else:
+        flash("Please enter a search term.", "warning")
+        return redirect(url_for('main'))
 
 @app.errorhandler(404)
 def page_not_found(e):
